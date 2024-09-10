@@ -29,4 +29,40 @@ try {
 
 }
 
-module.exports={getAllProduct,getProductById}
+const getProductByFilter = async(req,res)=>{
+    try {
+        const brand= req.query.brand;
+        const sort= req.query.sort
+        const order= req.query.order
+
+        
+        
+        if(order && sort){
+            const products= await Product.find().sort({sort:order});
+            return res.json({success: true, products});
+        }
+       
+    } catch (error) {
+        return res.status(500).json({message: error.message,success: false});
+    }
+
+
+
+
+
+}
+
+const sortProduct= async (req,res)=>{
+    try {
+  
+        const field= req.query.sortOrder;
+        const products= await Product.find().sort({field: sortOrder});
+        return res.json({success: true, products});
+        
+    } catch (error) {
+        
+    }
+}
+
+
+module.exports={getAllProduct,getProductById,getProductByFilter}

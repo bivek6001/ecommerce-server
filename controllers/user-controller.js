@@ -59,7 +59,7 @@ const signin= async (req, res) => {
 
     
     res.header("token",token);
-      const loggedinUser= await User.findOne({email}).select("-password")
+      const loggedinUser= await User.findOne({email}).select("-password").populate("orders")
     
      res.json({ message: 'Login successful', success: true,loggedinUser });
   } catch (err) {
